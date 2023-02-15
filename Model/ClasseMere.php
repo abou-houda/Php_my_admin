@@ -18,8 +18,8 @@ class ClasseMere extends DataAccess{
     public function Select($table){
         return DataAccess::selection("SELECT * FROM $table");
     }
-    public function SelectById($table,$id){
-        return DataAccess::selection("SELECT * FROM $table WHERE id=$id");
+    public function SelectById($table,$id,$idValue){
+        return DataAccess::selection("SELECT * FROM $table WHERE $id=$idValue");
     }
     public function Update($table,$values,$id){
 
@@ -34,9 +34,8 @@ class ClasseMere extends DataAccess{
             self::miseajour($query);
             return 0;
     }
-    public function Delete($table,$field){
-
-        $query = "ALTER TABLE $table DROP COLUMN $field;";
+    public function Delete($table,$field,$idValue){
+        $query = "DELETE FROM $table WHERE $field=$idValue;";
         self::miseajour($query);
         return 0; 
     }

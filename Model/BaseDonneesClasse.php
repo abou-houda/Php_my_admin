@@ -1,19 +1,20 @@
 <?php
+include('../DB/DataAccess.php');
 class BaseDonneesClasse extends ClasseMere{
-
-    public function CreateDb($nameDb){
-        $this->Insert('DB',$nameDb);
+    private $nom='DB';
+    
+    public function CreateDb($values){
+        $this->Insert($this->nom,$values);
     }
 
-    public function DropDb($nameDb){
-        $this->Delete('DB',$nameDb);
+    public function DropDb($idVal){
+        $this->Delete($this->nom,'nom',$idVal);
     }
     public function ShowDb(){
-        return $this->Select('Db');
+        return $this->Select($this->nom);
     }
-    public function SelectByNom($nom){
-        return DataAccess::selection("SELECT * FROM Db WHERE nom=$nom");
+    public function SelectByNom($idVal){
+        $this->SelectById($this->nom,'nom',$idVal);
     }
-
 }
 ?>
