@@ -17,4 +17,5 @@ class BaseDonneesClasse extends ClasseMere{
         $this->SelectById($this->nom,'nom',$idVal);
     }
 }
+
 ?>

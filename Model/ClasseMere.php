@@ -39,6 +39,5 @@ class ClasseMere extends DataAccess{
         self::miseajour($query);
         return 0; 
     }
-
 }
 ?>
