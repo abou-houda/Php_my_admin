@@ -14,31 +14,30 @@
             $this->contrainte=$contrainte;
         }
 
-        public function Select($nomtable){
-            return DataAccess::selection("SELECT * FROM $nomtable");
+        //------- methode selection --------
+        public function SelectTable($nomtable){
+            $this->Select($nomtable);
         }
 
-        protected function createTable($fields)  
+        //---------- methode creation Insertion ---------
+        protected function createTable($columns)  
         {
-            $this->create($this->nom,$fields);  // from classeMereTable
+            $this->CreateInsertTable($this->nom,$columns);  // from classeMereTable
         }
 
-        protected function insertTable($fields)
+        //---------- methode suppression ---------
+        protected function deleteTable($fields)
         {
-            $this->Insert($this->nom,$fields);  // from ClasseMere
+            $this->DropDeleteTable($this->nom, $fields, $this->id);
         }
 
-        protected function deleteTable($nomTable,$id)
+        //---------- methode Modification ---------
+        protected function updateTable($newTableName, $constraintName, $ReferencesTableName,  $ForeignKeyName)
         {
-            $query = "DELETE FROM $nomTable WHERE id = $id";
-            self::miseajour($query);
-            return 0;
+            $this->RenameTable($this->nom, $newTableName); // from ClasseMereTable
+            $this->ForeignKey($this->nom, $constraintName, $ReferencesTableName,  $ForeignKeyName); // from ClasseMereTable
         }
-
-        protected function updateTable($values,$id)
-        {
-            $this->update($this->nom, $values, $id); // from ClasseMere
-        }
+         
        
     }
 ?>
