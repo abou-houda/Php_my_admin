@@ -1,27 +1,36 @@
 <?php
-include('../DB/DataAccess.php');
+include_once ('./DB/DataAccess.php');
 class ClasseMere extends DataAccess{
+
+    //insert into table x
     public function Insert($table,$fields)
     {
-        $string = '';
+        $string = "";
         for ($i = 0; $i < count($fields); $i++){
 
             if(is_string($fields[$i])) $string .="'".$fields[$i]."'";
+            elseif ($fields[$i] == null) $string .= 'Null';
             else  $string .=$fields[$i];
 
             if ($i !== count($fields) - 1) $string .= ',';
         }
         $query = "INSERT INTO $table VALUES($string);";
-        self::miseajour($query);
-        return 0; 
+        return self::miseajour($query);
     }
+
+    //select from table x
     public function Select($table){
         return DataAccess::selection("SELECT * FROM $table");
     }
+
+    //select from table x by primaryKey
     public function SelectById($table,$id,$idValue){
-        return DataAccess::selection("SELECT * FROM $table WHERE $id=$idValue");
+        $query = "SELECT * FROM $table WHERE $id='$idValue'";
+        return DataAccess::selection($query);
     }
-    public function Update($table,$values,$id){
+
+    //update table x
+    public function Update($table,$values,$key,$value){
 
         $data = DataAccess::selection("DESC $table")->fetchAll();
         $string='';
@@ -30,14 +39,19 @@ class ClasseMere extends DataAccess{
 
                 if($i< count($data)- 1) $string .=',';
             }
-            $query="UPDATE $table SET $string WHERE id=$id";
-            self::miseajour($query);
-            return 0;
+            $query="UPDATE $table SET $string WHERE $key='$value'";
+            return self::miseajour($query);
     }
-    public function Delete($table,$field,$idValue){
-        $query = "DELETE FROM $table WHERE $field=$idValue;";
-        self::miseajour($query);
-        return 0; 
+
+    //delete from table x
+    public function Delete($table,$fields,$Values){
+        $query = "DELETE FROM $table WHERE ";
+        for ($i = 0 ;$i<count($fields);$i++){
+            $query .= $fields[$i]."="."'".$Values[$i]."'";
+            if ($i !== count($fields)-1) $query .= " AND ";
+            else $query .= ";";
+        }
+        return self::miseajour($query);
     }
 }
 ?>

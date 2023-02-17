@@ -1,43 +1,51 @@
 <?php
-    include( "../DB/DataAccess.php");
+    include_once( "./DB/DataAccess.php");
     class Table extends classeMereTable{
-        private $id;
-        private $nom;
-        private $DBnom;
-        private $contrainte;
 
-        function __construct($id, $nom, $DBnom, $contrainte)
-        {
-            $this->id=$id;
-            $this->nom=$nom;
-            $this->DBnom=$DBnom;
-            $this->contrainte=$contrainte;
-        }
-
-        //------- methode selection --------
-        public function SelectTable($nomtable){
-            $this->Select($nomtable);
-        }
+        public function __Construct(){}
 
         //---------- methode creation Insertion ---------
-        protected function createTable($columns)  
+        public function createInsertTable($dbNom, $tableName, $fieldsName, $fieldsType, $fieldsLength,
+                                          $fieldsDefault, $fieldIsPrimary, $fieldIsAutoIncr)
         {
-            $this->CreateInsertTable($this->nom,$columns);  // from classeMereTable
+            $res = $this->CreateTable($dbNom, $tableName, $fieldsName, $fieldsType, $fieldsLength,
+                $fieldsDefault, $fieldIsPrimary, $fieldIsAutoIncr);
+            if ($res == 0){
+                return  $this->Insert("mytable",[null,$tableName,$dbNom,'']);
+            }
+            return -1;
         }
 
-        //---------- methode suppression ---------
-        protected function deleteTable($fields)
+        //---------- methode drop suppression ---------
+        public function dropDeleteTable($dbNom, $tableName)
         {
-            $this->DropDeleteTable($this->nom, $fields, $this->id);
+            $res = $this->DropTable($tableName.'_'.$dbNom);
+            if ($res == 0){
+                return $this->Delete("mytable",["nom","db_nom"],[$tableName,$dbNom]);
+            }
+            return -1;
         }
 
-        //---------- methode Modification ---------
-        protected function updateTable($newTableName, $constraintName, $ReferencesTableName,  $ForeignKeyName)
+        //---------- methode update Modification ---------
+        public function updateTableNom($dbName,$oldName,$newName)
         {
-            $this->RenameTable($this->nom, $newTableName); // from ClasseMereTable
-            $this->ForeignKey($this->nom, $constraintName, $ReferencesTableName,  $ForeignKeyName); // from ClasseMereTable
+            $res = $this->RenameTable($dbName,$oldName,$newName);
+            if ($res == 0){
+                $select = $this->SelectById("mytable","nom",$oldName)->fetchAll();
+                return $this->Update("mytable",[$newName,$dbName,$select[0]['contraint']],"nom",$oldName);
+            }
+            return -1;
         }
-         
-       
+
+        //---------- methode add foreign key ----------------
+
+        public function addForeignKey($dbName,$tableName,$constraintName,$tableReferencesName,$fkName,$references){
+            $res = $this->ForeignKey($tableName.'_'.$dbName,$constraintName,
+                $tableReferencesName.'_'.$dbName,$fkName,$references);
+            if ($res ==0){
+                return $this->Update("mytable",[$tableName,$dbName,$fkName.'/'.$tableReferencesName.'/'.$references],"nom",$tableName);
+            }
+            return -1;
+        }
     }
 ?>
