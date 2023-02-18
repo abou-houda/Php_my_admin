@@ -1,5 +1,6 @@
 <?php
-    include_once( "./DB/DataAccess.php");
+    include_once( "../DB/DataAccess.php");
+    include_once( "classeMereTable.php");
     class Table extends classeMereTable{
 
         public function __Construct(){}
@@ -27,12 +28,12 @@
         }
 
         //---------- methode update Modification ---------
-        public function updateTableNom($dbName,$oldName,$newName)
+        public function updateTableNom($dbName1,$dbName2,$oldName,$newName)
         {
-            $res = $this->RenameTable($dbName,$oldName,$newName);
+            $res = $this->RenameTable($dbName1,$dbName2,$oldName,$newName);
             if ($res == 0){
                 $select = $this->SelectById("mytable","nom",$oldName)->fetchAll();
-                return $this->Update("mytable",[$newName,$dbName,$select[0]['contraint']],"nom",$oldName);
+                return $this->Update("mytable",[$newName,$dbName2,$select[0]['contraint']],"nom",$oldName);
             }
             return -1;
         }

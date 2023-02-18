@@ -1,18 +1,11 @@
-<!--
-=========================================================
-* * Black Dashboard - v1.0.1
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/black-dashboard
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
+<?php
+include_once ('../Model/BaseDonneesClasse.php');
+include_once ('../Model/ClasseMere.php');
+include_once ('../Model/ClasseTable.php');
+$db = new BaseDonneesClasse();
+$table = new Table();
+$dbs = $db->ShowDb();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,9 +21,9 @@
   <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
   <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
   <!-- Nucleo Icons -->
-  <link href="./assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
   <!-- CSS Files -->
-  <link href="./assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
+  <link href="../assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
 
 </head>
 
@@ -42,16 +35,16 @@
     -->
       <div class="sidebar-wrapper">
         <div class="logo">
-          <a href="javascript:void(0)" class="simple-text logo-mini">
+          <a href="./index.php" class="simple-text logo-mini">
         Base
           </a>
-          <a href="javascript:void(0)" class="simple-text logo-normal">
+          <a href="./index.php" class="simple-text logo-normal">
            de données
           </a>
         </div>
         <ul class="nav">
           <li>
-            <a href="index.html">
+            <a href="index.php?page=db_new">
               <i class="tim-icons icon-align-center"></i>
               <p>Nouvelle base de données</p>
             </a>
@@ -59,27 +52,34 @@
          <li>
           <ul >
               <ul>
-                <li>
+                  <?php
+                  while ($row = $dbs->fetch()){
+                      $tables = $table->SelectById("mytable","db_nom",$row[0]);
+                      echo '<li>
                   <div class="row " >
                     <div class="col-4">
-                      <p> BD1</p>
+                      <p><a style="text-decoration: none;color: white;font-weight: bold" href="index.php?page=db_info&&section=info&&db='.$row[0].'">'.$row[0].'</a></p>
                     </div>
                     <div class="col-4">
                       <div class="dropdown">
                         <button type="button" class="btn btn-link dropdown-toggle btn-icon" data-toggle="dropdown">
-                          <span class=""> +</span>
+                          <span class=""> + </span>
                         </button>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                          <a class="dropdown-item" href="#pablo">Client</a>
-                          <a class="dropdown-item" href="#pablo">Produit</a>
-                          <a class="dropdown-item" href="#pablo">Commande</a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">';
+                      while ($row1 = $tables->fetch()){
+                          echo '<a class="dropdown-item" href="./index.php?page=table_data_list&&db='.$row[0].'&&table='.$row1[1].'">'.$row1[1].'</a>';
+                      }
+                      echo '<a class="dropdown-item" href="index.php?page=newTable&&db='.$row[0].'">ajouter table</a>';
+                      '
                         </div>
-                
                       </div>
                     </div>
                   </div>
-                
-                </li>
+
+                </li>';
+                  }
+                  $dbs->closeCursor();
+                  ?>
 
               </ul>
           </ul>
@@ -100,7 +100,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="javascript:void(0)">phpMyAdmin</a>
+            <a class="navbar-brand" href="./index.php">phpMyAdmin</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -133,7 +133,7 @@
               <li class="dropdown nav-item">
                 <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                   <div class="photo">
-                    <img src="./assets/img/anime3.png" alt="Profile Photo">
+                    <img src="../assets/img/anime3.png" alt="Profile Photo">
                   </div>
                   <b class="caret d-none d-lg-block d-xl-block"></b>
                   <p class="d-lg-none">
@@ -167,63 +167,15 @@
       <!-- End Navbar -->
         
       <div class="content">
-        <div class="row">
-            <div class="col-12">
-              <div class="btn-group btn-group-toggle float-start" data-toggle="buttons">
-                <label class="btn btn-sm btn-primary btn-simple active" id="0">
-                  <input type="radio" name="options" checked>
-                  <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Bases de données</span>
-                  <span class="d-block d-sm-none">
-                    <i class="tim-icons icon-single-02"></i>
-                  </span>
-                </label>
-                <label class="btn btn-sm btn-primary btn-simple " id="1">
-                <input type="radio" class="d-none" name="options">
-                  <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Parcourir</span>
-                  <span class="d-block d-sm-none">
-                      <i class="tim-icons icon-gift-2"></i>
-                  </span>
-                </label>
-                <label class="btn btn-sm btn-primary btn-simple " id="2">
-                  <input type="radio" class="d-none" name="options">
-                  <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Structure</span>
-                  <span class="d-block d-sm-none">
-                      <i class="tim-icons icon-gift-2"></i>
-                  </span>
-                </label>
-                <label class="btn btn-sm btn-primary btn-simple" id="3">
-                  <input type="radio" class="d-none d-sm-none" name="options">
-                  <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">SQL</span>
-                  <span class="d-block d-sm-none">
-                    <i class="tim-icons icon-gift-2"></i>
-                  </span>
-                </label>
-              
-              </div>
-            </div>
-        </div>
-        <div class="row">
-          <div class="col-12">
-            <div class="card card-chart">
-              <div class="card-header ">
-                <div class="row">
-                  <div class="col-sm-6 text-left">
-                    <h5 class="card-category">les Table</h5>
-                    <h2 class="card-title">KHADIJA</h2>
-                     
-                  </div>
-           
-                </div>
-              </div>
-              <div class="card-body">
-                <div class="chart-area">
-                  <canvas id="chartBig1"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-   
+          <?php
+          if (!isset($_GET['page'])){
+              include_once ('welcome.php');
+          }
+          else{
+              $path = explode('_',$_GET['page']);
+              include_once (''.$path[0].'/'.$_GET['page'].'.php');
+          }
+          ?>
       </div>
       <footer class="footer">
         <div class="container-fluid">
@@ -270,15 +222,18 @@
     </div>
   </div>
   <!--   Core JS Files   -->
-  <script src="./assets/js/core/jquery.min.js"></script>
-  <script src="./assets/js/core/popper.min.js"></script>
-  <script src="./assets/js/core/bootstrap.min.js"></script>
-  <script src="./assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-  <script src="./assets/js/black-dashboard.min.js?v=1.0.0"></script>
+  <script src="../assets/js/core/jquery.min.js"></script>
+  <script src="../assets/js/core/popper.min.js"></script>
+  <script src="../assets/js/core/bootstrap.min.js"></script>
+  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <script src="../assets/js/black-dashboard.min.js?v=1.0.0"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="../assets/js/modals.js"></script>
   <!-- Black Dashboard DEMO methods, don't include it in your project! -->
 
   <script>
     $(document).ready(function() {
+
       $().ready(function() {
         $sidebar = $('.sidebar');
         $navbar = $('.navbar');
@@ -388,13 +343,7 @@
       });
     });
   </script>
-  <script>
-    $(document).ready(function() {
-      // Javascript method's body can be found in assets/js/demos.js
-      demo.initDashboardPageCharts();
 
-    });
-  </script>
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
   <script>
     window.TrackJS &&
@@ -403,6 +352,7 @@
         application: "black-dashboard-free"
       });
   </script>
+
 </body>
 
 </html>

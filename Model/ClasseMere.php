@@ -1,5 +1,5 @@
 <?php
-include_once ('./DB/DataAccess.php');
+include_once ('../DB/DataAccess.php');
 class ClasseMere extends DataAccess{
 
     //insert into table x
@@ -34,12 +34,13 @@ class ClasseMere extends DataAccess{
 
         $data = DataAccess::selection("DESC $table")->fetchAll();
         $string='';
-            for($i=1;$i<count($data);$i++) {     
-                $string .= $data[$i][0].'='."'".$values[$i-1]."'";
+            for($i=0;$i<count($data);$i++) {
+                $string .= $data[$i][0].'='."'".$values[$i]."'";
 
                 if($i< count($data)- 1) $string .=',';
             }
             $query="UPDATE $table SET $string WHERE $key='$value'";
+            echo $query;
             return self::miseajour($query);
     }
 
@@ -52,6 +53,16 @@ class ClasseMere extends DataAccess{
             else $query .= ";";
         }
         return self::miseajour($query);
+    }
+
+    public function TableFeilds($table){
+        $query = "DESC $table";
+        $data = DataAccess::selection($query)->fetchAll();
+        $fields  = array();
+        for($i=0;$i<count($data);$i++) {
+            $fields[] = $data[$i][0];
+        }
+        return $fields;
     }
 }
 ?>

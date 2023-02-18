@@ -1,6 +1,6 @@
 <?php
-include_once ('./DB/DataAccess.php');
-include_once ('classeMere.php');
+include_once ('../DB/DataAccess.php');
+include_once ('ClasseMere.php');
 class classeMereTable extends classeMere{
 
     //create table
@@ -31,14 +31,14 @@ class classeMereTable extends classeMere{
     }
 
     //rename table
-    public function RenameTable($dbNom, $oldTableName, $newTableName)
+    public function RenameTable($dbNom1,$dbNom2, $oldTableName, $newTableName)
     {
-        $query = "ALTER TABLE " . $oldTableName."_".$dbNom . " RENAME TO " . $newTableName."_".$dbNom;
+        $query = "ALTER TABLE " . $oldTableName."_".$dbNom1 . " RENAME TO " . $newTableName."_".$dbNom2;
         return self::miseajour($query);
     }
 
     //------------------- FOREIGN KEY ---------------------------
-    protected function ForeignKey($AlterTableName, $constraintName, $ReferencesTableName, $ForeignKeyName,$references)
+    public function ForeignKey($AlterTableName, $constraintName, $ReferencesTableName, $ForeignKeyName,$references)
     {
         $query = "ALTER TABLE " . $AlterTableName . 
                " ADD CONSTRAINT " . $constraintName .
@@ -48,7 +48,7 @@ class classeMereTable extends classeMere{
     }
 
     // ----------- Methode DropTable  ------------
-    protected function DropTable($tableName){
+    public function DropTable($tableName){
         $query = "DROP TABLE $tableName;";
         return self::miseajour($query);
     }
