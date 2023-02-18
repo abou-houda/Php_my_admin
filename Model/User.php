@@ -41,6 +41,6 @@ class User extends ClasseMere
     }
 
     public function updateUser($login,$password,$db){
-        return $this->Update('users',[$this->id,$login,$password,($db != '' ? $this->dbs.'**'.$db : $this->dbs)],'id',$this->id);
+        return $this->Update('users',[$this->id,$login,$password,($login != 'root' ? $this->dbs.'**'.$db : $this->dbs)],'id',$this->id);
     }
 }
