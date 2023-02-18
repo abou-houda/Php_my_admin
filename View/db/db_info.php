@@ -58,14 +58,15 @@ else{
             <div class="card card-chart">
                 <div class="card top-selling overflow-auto">
                     <div class="card-body pb-0 p-4">
-                        <h4 class="card-title"><?php echo $_GET['db']; ?><span> | Tables</span></h4>
+                        <h4 class="card-title"><?php echo $_GET['db']; ?><span> | <?php echo $db->getTableCountByDB($_GET['db']);?> Tables</span></h4>
 
                         <table class="table table-borderless table-striped table-hover p-4">
                             <thead>
                             <tr>
-                                <th scope="col-4" class="text-center col-3">Id</th>
-                                <th scope="col-4" class="text-center col-4">Nom</th>
-                                <th scope="col-4" class="text-center col-5">Action</th>
+                                <th scope="col-3" class="text-center col-2">Id</th>
+                                <th scope="col-3" class="text-center col-4">Nom</th>
+                                <th scope="col-3" class="text-center col-2">Lignes</th>
+                                <th scope="col-3" class="text-center col-4">Action</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -75,6 +76,7 @@ else{
                                     echo '<tr class="text-center">';
                                     echo '<td w><a  class="text-primary fw-bold">'.$row[0].'</a></td>
                                 <td >'.$row[1].'</td>
+                                <td >'.$table->selectTableRowCount($_GET['db'],$row[1]).'</td>
                                 <td class="fw-bold"><button class="btn btn-primary m-2 p-2" style="width: 100px"><a href="./index.php?page=table_data_list&&db='.$_GET['db'].'&&table='.$row[1].'" style="color: white;font-weight: bold">Afficher</a></button>';
                                     ?>
                                     <button onclick="deleteItem('table','Vous Etes Sur que vous voulez supprimer cette table?','la table va etre supprimer','&&db=<?php echo $_GET['db'] ?>&&table=<?php echo $row[1] ?>')"

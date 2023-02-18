@@ -20,11 +20,21 @@
 </div>
 <?php
 if (isset($_POST['add'])){
-    $db->CreateDb([$_POST['db_name']]);
-    ?>
-    <script>
-        window.location= "./index.php?page=db_info&&section=info&&db="+'<?php echo $_POST['db_name']; ?>';
-    </script>
-    <?php
+    $res = $db->CreateDb([$_POST['db_name']]);
+    if ($res == 1){
+        $user->updateUser($_SESSION["login"],$_SESSION["password"],$_POST['db_name']);
+        ?>
+        <script>
+            window.location= "./index.php?page=db_info&&section=info&&db="+'<?php echo $_POST['db_name']; ?>'+"&&successmsg=la base de donnees a ete bien ajoute";
+        </script>
+        <?php
+    }
+    else{
+        ?>
+        <script>
+            window.location= "./index.php?page=db_info&&section=info&&db="+'<?php echo $_POST['db_name']; ?>'+"&&errormsg=une base de données avec le meme nom deja existe";
+        </script>
+        <?php
+    }
 }
 ?>

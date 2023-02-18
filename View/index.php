@@ -1,10 +1,21 @@
 <?php
+session_start();
+if (!isset($_SESSION["login"])){
+    ?>
+    <script>
+        window.location = "login.php";
+    </script>
+<?php
+}
 include_once ('../Model/BaseDonneesClasse.php');
 include_once ('../Model/ClasseMere.php');
 include_once ('../Model/ClasseTable.php');
+include_once ('../Model/User.php');
 $db = new BaseDonneesClasse();
 $table = new Table();
 $dbs = $db->ShowDb();
+$user = User::getUser($_SESSION["login"],$_SESSION["password"]);
+$userdb = $user->getDataBases();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -54,6 +65,7 @@ $dbs = $db->ShowDb();
               <ul>
                   <?php
                   while ($row = $dbs->fetch()){
+                      if (in_array($row[0],$userdb)){
                       $tables = $table->SelectById("mytable","db_nom",$row[0]);
                       echo '<li>
                   <div class="row " >
@@ -77,7 +89,7 @@ $dbs = $db->ShowDb();
                   </div>
 
                 </li>';
-                  }
+                  } }
                   $dbs->closeCursor();
                   ?>
 
@@ -141,10 +153,10 @@ $dbs = $db->ShowDb();
                   </p>
                 </a>
                 <ul class="dropdown-menu dropdown-navbar">
-                  <li class="nav-link"><a href="javascript:void(0)" class="nav-item dropdown-item">Profile</a></li>
+                  <li class="nav-link"><a href="javascript:void(0)" class="nav-item dropdown-item"><?php echo $_SESSION['login']; ?></a></li>
                   <li class="nav-link"><a href="javascript:void(0)" class="nav-item dropdown-item">Settings</a></li>
                   <li class="dropdown-divider"></li>
-                  <li class="nav-link"><a href="javascript:void(0)" class="nav-item dropdown-item">Log out</a></li>
+                  <li class="nav-link"><a href="logging/logout.php" class="nav-item dropdown-item">Log out</a></li>
                 </ul>
               </li>
               <li class="separator d-lg-none"></li>
@@ -165,9 +177,38 @@ $dbs = $db->ShowDb();
         </div>
       </div>
       <!-- End Navbar -->
-        
       <div class="content">
           <?php
+          if (isset($_GET['successmsg'])){
+              echo ' <div class="col-sm-12">
+        <div style="margin-left: -10px" class="alert fade alert-simple alert-primary alert-dismissible text-left font__family-montserrat font__size-16 font__weight-light brk-library-rendered rendered show">
+          <button type="button" class="close font__size-18" data-dismiss="alert">
+									<span aria-hidden="true"><a>
+                    <i class="fa fa-times greencross" style="margin-top: 10px"></i>
+                    </a></span>
+									<span class="sr-only" >Close</span> 
+								</button>
+          <i class="start-icon far fa-check-circle faa-tada animated" ></i>
+          <strong class="font__weight-semibold">Success ! </strong> '.$_GET["successmsg"].'
+        </div>
+      </div>
+';
+          }
+          if (isset($_GET['errormsg'])){
+              echo ' <div class="col-sm-12">
+        <div style="margin-left: -10px" class="alert fade alert-simple alert-danger alert-dismissible text-left font__family-montserrat font__size-16 font__weight-light brk-library-rendered rendered show" role="alert" data-brk-library="component__alert">
+          <button type="button" class="close font__size-18" data-dismiss="alert">
+									<span aria-hidden="true">
+										<i class="fa fa-times danger " style="margin-top: 10px"></i>
+									</span>
+									<span class="sr-only">Close</span>
+								</button>
+          <i class="start-icon far fa-times-circle faa-pulse animated"></i>
+          <strong class="font__weight-semibold">Erreur</strong> '.$_GET["errormsg"].'
+        </div>
+      </div>
+';
+          }
           if (!isset($_GET['page'])){
               include_once ('welcome.php');
           }

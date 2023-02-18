@@ -40,7 +40,6 @@ class ClasseMere extends DataAccess{
                 if($i< count($data)- 1) $string .=',';
             }
             $query="UPDATE $table SET $string WHERE $key='$value'";
-            echo $query;
             return self::miseajour($query);
     }
 

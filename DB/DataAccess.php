@@ -10,7 +10,7 @@ class DataAccess{
                 $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 return $bdd;
             } catch (Exception $e) {
-                echo ('Erreur : ' . $e->getMessage());
+                return ('Erreur : ' . $e->getMessage());
             }
         }
 
@@ -23,7 +23,7 @@ class DataAccess{
                 $maj = $bdd->exec($req);
                 return $maj;
             } catch (Exception $e) {
-                echo ('Erreur : ' . $e->getMessage());
+                return ('Erreur : ' . $e->getMessage());
             }
             $bdd = null;
         }
@@ -37,7 +37,7 @@ class DataAccess{
                 $rep = $bdd->query($req);
                 return $rep;
             } catch (Exception $e) {
-                echo ('Erreur : ' . $e->getMessage());
+                return ('Erreur : ' . $e->getMessage());
             }
             $bdd = null;
         }

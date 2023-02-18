@@ -48,5 +48,10 @@
             }
             return -1;
         }
+
+        public function selectTableRowCount($dbName,$tableName){
+            $res = $this::selection("select count(*) from ".($tableName.'_'.$dbName))->fetchAll();
+            return $res[0][0];
+        }
     }
 ?>

@@ -2,20 +2,29 @@
 include_once ('../Model/classeTable.php');
 $dbname = "";
 if (isset($_POST['edit'])){
-    echo 1;
     $dbname = $_POST['new'];
     $tableObject = new Table();
-    $tables = $db->Select("mytable");
-    $db->editDb([$_POST['new']],$_POST['old']);
-    while ($row = $tables->fetch()){
-        $tableObject->RenameTable($_POST['old'],$_POST['new'],$row[1],$row[1]);
+    $res = $db->editDb([$_POST['new']],$_POST['old']);
+    if ($res == 1){
+        $tables = $db->Select("mytable");
+        while ($row = $tables->fetch()){
+            $tableObject->RenameTable($_POST['old'],$_POST['new'],$row[1],$row[1]);
+        }
+        $tables->closeCursor();
+        ?>
+        <script>
+            window.location= "./index.php?page=db_info&&section=info&&db="+'<?php echo $dbname; ?>'+"&&successmsg=la base de donnees a ete bien modifier";
+        </script>
+        <?php
     }
-    $tables->closeCursor();
-    ?>
-    <script>
-        window.location= "./index.php?page=db_info&&section=info&&db="+'<?php echo $dbname; ?>';
-    </script>
-<?php
+    else{
+        ?>
+        <script>
+            window.location= "./index.php?page=db_info&&section=info&&db="+'<?php echo $dbname; ?>'+"&&errormsg=une base de données avec le meme nom deja existe";
+        </script>
+        <?php
+    }
+
 }
 else{
     $dbname = $_GET['db'];

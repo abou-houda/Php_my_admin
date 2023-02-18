@@ -9,12 +9,12 @@ class BaseDonneesClasse extends ClasseMere{
 
     //insert new db in our db table
     public function CreateDb($values){
-        $this->Insert($this->nom,$values);
+        return $this->Insert($this->nom,$values);
     }
 
     //delete db from our db table
     public function DropDb($idVal){
-        $this->Delete($this->nom,['nom'],[$idVal]);
+        return $this->Delete($this->nom,['nom'],[$idVal]);
     }
 
     //show all databases
@@ -30,6 +30,11 @@ class BaseDonneesClasse extends ClasseMere{
     //select a db by its primaryKey nom
     public function SelectByNom($idVal){
         $this->SelectById($this->nom,'nom',$idVal);
+    }
+
+    public function getTableCountByDB($dbNom){
+        $res = $this::selection("select count(*) from mytable where db_nom = '$dbNom'")->fetchAll();
+        return $res[0][0];
     }
 }
 
