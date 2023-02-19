@@ -11,6 +11,11 @@ include_once ('../Model/BaseDonneesClasse.php');
 include_once ('../Model/ClasseMere.php');
 include_once ('../Model/ClasseTable.php');
 include_once ('../Model/User.php');
+if (!isset($_SESSION['mode'])){
+    $_SESSION['mode'] = "dark";
+}
+$mode = $_SESSION['mode'];
+$class = (($mode != 'dark')? 'white-content' : '');
 $db = new BaseDonneesClasse();
 $table = new Table();
 $dbs = $db->ShowDb();
@@ -35,10 +40,23 @@ $userdb = $user->getDataBases();
   <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="../assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.css">
+<style>
+    div.dataTables_filter > label > input {
+        background-color: #c221a9;
+        color: #c221a9;
+        font-weight: bold;
+    }
+    div.dataTables_filter select {
+        background-color: #c221a9;
+        color: #c221a9;
+        font-weight: bold;
+    }
+</style>
 
 </head>
 
-<body class="">
+<body class="<?php echo $class?>">
   <div class="wrapper">
     <div class="sidebar">
       <!--
@@ -251,8 +269,8 @@ $userdb = $user->getDataBases();
         </li>
         <li class="adjustments-line text-center color-change">
           <span class="color-label">LIGHT MODE</span>
-          <span class="badge light-badge mr-2"></span>
-          <span class="badge dark-badge ml-2"></span>
+          <span class="Mode badge light-badge mr-2"></span>
+          <span  class="Mode badge dark-badge ml-2"></span>
           <span class="color-label">DARK MODE</span>
         </li>
        <li>
@@ -270,12 +288,22 @@ $userdb = $user->getDataBases();
   <script src="../assets/js/black-dashboard.min.js?v=1.0.0"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="../assets/js/modals.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.js"></script>
+
   <!-- Black Dashboard DEMO methods, don't include it in your project! -->
 
   <script>
     $(document).ready(function() {
 
-      $().ready(function() {
+        $('#tableBody').DataTable();
+        $('#datalisttable').DataTable();
+
+        $('.Mode').click(function (){
+            window.location = 'Mode/changeMode.php';
+        })
+
+
+        $().ready(function() {
         $sidebar = $('.sidebar');
         $navbar = $('.navbar');
         $main_panel = $('.main-panel');

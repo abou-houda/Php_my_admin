@@ -20474,7 +20474,6 @@ Copyright (c) 2015 Daniel Eden
   background-color: rgba(7, 149, 66, 0.12156862745098039);
   box-shadow: 0px 0px 2px #259c08;
   color: #0ad406;
-  text-shadow: 2px 1px #00040a;
   transition:0.5s;
   cursor:pointer;
 }
@@ -20488,7 +20487,6 @@ Copyright (c) 2015 Daniel Eden
   background-color: rgba(7, 73, 149, 0.12156862745098039);
   box-shadow: 0px 0px 2px #0396ff;
   color: #0396ff;
-  text-shadow: 2px 1px #00040a;
   transition:0.5s;
   cursor:pointer;
 }
@@ -20512,7 +20510,6 @@ Copyright (c) 2015 Daniel Eden
   background-color: rgba(220, 128, 1, 0.16);
   box-shadow: 0px 0px 2px #ffb103;
   color: #ffb103;
-  text-shadow: 2px 1px #00040a;
   transition:0.5s;
   cursor:pointer;
 }
@@ -20535,7 +20532,7 @@ Copyright (c) 2015 Daniel Eden
   background-color: rgba(220, 17, 1, 0.16);
   box-shadow: 0px 0px 2px #ff0303;
   color: #ff0303;
-  text-shadow: 2px 1px #00040a;
+
   transition:0.5s;
   cursor:pointer;
 }
@@ -20555,17 +20552,16 @@ Copyright (c) 2015 Daniel Eden
 
 .alert-simple.alert-primary
 {
-  border: 1px solid rgba(6, 241, 226, 0.81);
-  background-color: rgba(1, 204, 220, 0.16);
-  box-shadow: 0px 0px 2px #03fff5;
-  color: #03d0ff;
-  text-shadow: 2px 1px #00040a;
+  border: 1px solid rgb(238, 48, 200);
+  background-color: rgba(227, 235, 236, 0);
+  box-shadow: 0px 0px 2px #ee30c8;
+  color: #bf30ee;
   transition:0.5s;
   cursor:pointer;
 }
 
 .alert-primary:hover{
-  background-color: rgba(1, 204, 220, 0.33);
+  background-color: rgba(1, 204, 220, 0);
   transition:0.5s;
 }
 
@@ -20658,3 +20654,4 @@ Copyright (c) 2015 Daniel Eden
     opacity: 0;
   }
 }
+

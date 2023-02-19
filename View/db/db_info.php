@@ -60,7 +60,7 @@ else{
                     <div class="card-body pb-0 p-4">
                         <h4 class="card-title"><?php echo $_GET['db']; ?><span> | <?php echo $db->getTableCountByDB($_GET['db']);?> Tables</span></h4>
 
-                        <table class="table table-borderless table-striped table-hover p-4">
+                        <table id="tableBody" class="table cell-border compact stripe hover table-borderless table-striped table-hover p-4">
                             <thead>
                             <tr>
                                 <th scope="col-3" class="text-center col-2">Id</th>
@@ -69,7 +69,7 @@ else{
                                 <th scope="col-3" class="text-center col-4">Action</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="">
                                 <?php
                                 $dbTables = $db->SelectById("mytable",'db_nom',$_GET['db']);
                                 while ($row = $dbTables->fetch()){

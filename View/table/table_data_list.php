@@ -5,7 +5,7 @@
                 <div class="card-body pb-0 p-4">
                     <h4 class="card-title"><?php echo $_GET['table']; ?><span> | Enregistrement</span></h4>
 
-                    <table class="table table-borderless table-striped table-hover p-4">
+                    <table id="datalisttable" class="table table-borderless table-striped table-hover p-4">
     <thead>
     <tr>
         <?php
