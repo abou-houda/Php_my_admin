@@ -13,6 +13,13 @@
                       <i class="tim-icons icon-gift-2"></i>
                   </span>
             </label>
+            <label class="btn btn-sm btn-primary btn-simple <?php echo($_GET['section'] == 'AddTable' ? 'active' : '') ?>" id="1">
+                <input type="radio" class="d-none" name="options">
+                <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block"><a href="./index.php?page=db_info&&section=AddTable&&db=<?php echo $_GET['db']; ?>" class="<?php echo($_GET['section'] == 'AddTable' ? 'text-white' : 'text-black') ?>">Ajouter Table</a></span>
+                <span class="d-block d-sm-none">
+                      <i class="tim-icons icon-gift-2"></i>
+                  </span>
+            </label>
         </div>
     </div>
 </div>
@@ -50,8 +57,28 @@ if ($_GET['section']=="info"){
         </div>
     </div>
 <?php
-}
-else{
+}else if($_GET['section']=="AddTable"){
+    ?>
+    <div class="row">
+        <div class="col-12">
+            <div class="card card-chart">
+                <div class="card top-selling overflow-auto">
+                    <div class="card-body pb-0 p-4">
+                        <h4 class="card-title"><?php echo $_GET['db']; ?><span> | <?php echo $db->getTableCountByDB($_GET['db']);?> Tables</span></h4>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <?php
+
+
+} else{
     ?>
     <div class="row">
         <div class="col-12">
