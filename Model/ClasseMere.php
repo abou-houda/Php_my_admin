@@ -3,7 +3,7 @@ include_once ('../DB/DataAccess.php');
 class ClasseMere extends DataAccess{
 
     //insert into table x
-    public function Insert($table,$fields)
+    public function Insert($table,$fields,$value="")
     {
         $string = "";
         for ($i = 0; $i < count($fields); $i++){
@@ -14,7 +14,7 @@ class ClasseMere extends DataAccess{
 
             if ($i !== count($fields) - 1) $string .= ',';
         }
-        $query = "INSERT INTO $table VALUES($string);";
+        $query = "INSERT INTO $table $value VALUES($string);";
         return self::miseajour($query);
     }
 
@@ -40,6 +40,7 @@ class ClasseMere extends DataAccess{
                 if($i< count($data)- 1) $string .=',';
             }
             $query="UPDATE $table SET $string WHERE $key='$value'";
+            echo $query;
             return self::miseajour($query);
     }
 
@@ -64,4 +65,3 @@ class ClasseMere extends DataAccess{
         return $fields;
     }
 }
-?>

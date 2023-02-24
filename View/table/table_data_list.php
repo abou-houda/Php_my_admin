@@ -1,5 +1,15 @@
 <div class="row">
     <div class="col-12">
+        <div class="btn-group btn-group-toggle float-start">
+        <label class="btn btn-sm btn-primary btn-simple active  ">
+                <input type="radio" name="options">
+                <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block"><a  href="./index.php?page=table_add_data&&db=<?php echo $_GET['db']?>&&table=<?php echo $_GET['table']?>" class="text-white">Insérer</a></span>
+            </label>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
         <div class="card card-chart">
             <div class="card top-selling overflow-auto">
                 <div class="card-body pb-0 p-4">
@@ -28,7 +38,7 @@ while ($row1 = $table_data->fetch()){
         echo '  <td >'.$row1[$i].'</td>';
     }
     ?>
-    <td ><button class="btn btn-primary m-2 p-2" style="width: 100px"><a href="" style="color: white;font-weight: bold">Modifier</a></button>
+    <td ><button class="btn btn-primary m-2 p-2" style="width: 100px"><a href="./index.php?page=table_data_update&&db=<?php echo $_GET['db'] ?>&&table=<?php echo $_GET['table'] ?>&&id=<?php echo $row1[0]?>" style="color: white;font-weight: bold">Modifier</a></button>
         <button onclick="deleteItem('table_data','Vous Etes Sur que vous voulez supprimer cette Enregistrement?','l\'enregistrement va etre supprimer','&&db=<?php echo $_GET['db'] ?>&&table=<?php echo $_GET['table'] ?>&&pk=<?php echo $pk?>&&data=<?php echo $row1[0]?>')"
                 class="btn btn-secondary  p-2" style="width: 100px">Supprimer</button></td>
     </tr>

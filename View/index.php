@@ -1,26 +1,29 @@
 <?php
 session_start();
-if (!isset($_SESSION["login"])){
-    ?>
-    <script>
-        window.location = "login.php";
-    </script>
+if (!isset($_SESSION["login"])) {
+?>
+  <script>
+    window.location = "login.php";
+  </script>
 <?php
 }
-include_once ('../Model/BaseDonneesClasse.php');
-include_once ('../Model/ClasseMere.php');
-include_once ('../Model/ClasseTable.php');
-include_once ('../Model/User.php');
-if (!isset($_SESSION['mode'])){
-    $_SESSION['mode'] = "dark";
+include_once('../Model/BaseDonneesClasse.php');
+include_once('../Model/ClasseMere.php');
+include_once('../Model/ClasseTable.php');
+include_once('../Model/User.php');
+if (!isset($_SESSION['mode'])) {
+  $_SESSION['mode'] = "dark";
 }
 $mode = $_SESSION['mode'];
-$class = (($mode != 'dark')? 'white-content' : '');
+$class = (($mode != 'dark') ? 'white-content' : '');
 $db = new BaseDonneesClasse();
 $table = new Table();
 $dbs = $db->ShowDb();
-$user = User::getUser($_SESSION["login"],$_SESSION["password"]);
+$user = User::getUser($_SESSION["login"], $_SESSION["password"]);
 $userdb = $user->getDataBases();
+$classMere = new ClasseMere();
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +34,7 @@ $userdb = $user->getDataBases();
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
   <title>
-  phpMyAdmin
+    phpMyAdmin
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
@@ -40,23 +43,28 @@ $userdb = $user->getDataBases();
   <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="../assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.css">
-<style>
-    div.dataTables_filter > label > input {
-        background-color: #c221a9;
-        color: #c221a9;
-        font-weight: bold;
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.css">
+
+
+  <script src="jquery-3.6.0.js"></script>
+  <style>
+    div.dataTables_filter>label>input {
+      background-color: #c221a9;
+      color: #c221a9;
+      font-weight: bold;
     }
+
     div.dataTables_filter select {
-        background-color: #c221a9;
-        color: #c221a9;
-        font-weight: bold;
+      background-color: #c221a9;
+      color: #c221a9;
+      font-weight: bold;
     }
-</style>
+  </style>
 
 </head>
 
-<body class="<?php echo $class?>">
+<body class="<?php echo $class ?>">
   <div class="wrapper">
     <div class="sidebar">
       <!--
@@ -65,10 +73,10 @@ $userdb = $user->getDataBases();
       <div class="sidebar-wrapper">
         <div class="logo">
           <a href="./index.php" class="simple-text logo-mini">
-        Base
+            Base
           </a>
           <a href="./index.php" class="simple-text logo-normal">
-           de données
+            de données
           </a>
         </div>
         <ul class="nav">
@@ -78,17 +86,17 @@ $userdb = $user->getDataBases();
               <p>Nouvelle base de données</p>
             </a>
           </li>
-         <li>
-          <ul >
+          <li>
+            <ul>
               <ul>
-                  <?php
-                  while ($row = $dbs->fetch()){
-                      if (in_array($row[0],$userdb)){
-                      $tables = $table->SelectById("mytable","db_nom",$row[0]);
-                      echo '<li>
+                <?php
+                while ($row = $dbs->fetch()) {
+                  if (in_array($row[0], $userdb)) {
+                    $tables = $table->SelectById("mytable", "db_nom", $row[0]);
+                    echo '<li>
                   <div class="row " >
                     <div class="col-4">
-                      <p><a style="text-decoration: none;color: white;font-weight: bold" href="index.php?page=db_info&&section=info&&db='.$row[0].'">'.$row[0].'</a></p>
+                      <p><a style="text-decoration: none;color: white;font-weight: bold" href="index.php?page=db_info&&section=info&&db=' . $row[0] . '">' . $row[0] . '</a></p>
                     </div>
                     <div class="col-4">
                       <div class="dropdown">
@@ -96,25 +104,26 @@ $userdb = $user->getDataBases();
                           <span class=""> + </span>
                         </button>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">';
-                      while ($row1 = $tables->fetch()){
-                          echo '<a class="dropdown-item" href="./index.php?page=table_data_list&&db='.$row[0].'&&table='.$row1[1].'">'.$row1[1].'</a>';
-                      }
-                      echo '<a class="dropdown-item" href="index.php?page=newTable&&db='.$row[0].'">ajouter table</a>';
-                      '
+                    while ($row1 = $tables->fetch()) {
+                      echo '<a class="dropdown-item" href="./index.php?page=table_data_list&&db=' . $row[0] . '&&table=' . $row1[1] . '">' . $row1[1] . '</a>';
+                    }
+                    echo '<a class="dropdown-item" href="index.php?page=db_info&&section=AddTable&&db=' . $row[0] . '">ajouter table</a>';
+                    '
                         </div>
                       </div>
                     </div>
                   </div>
 
                 </li>';
-                  } }
-                  $dbs->closeCursor();
-                  ?>
+                  }
+                }
+                $dbs->closeCursor();
+                ?>
 
               </ul>
-          </ul>
-         </li>
-        
+            </ul>
+          </li>
+
         </ul>
       </div>
     </div>
@@ -140,7 +149,7 @@ $userdb = $user->getDataBases();
           <div class="collapse navbar-collapse" id="navigation">
             <ul class="navbar-nav ml-auto">
               <li class="search-bar input-group">
-                <button class="btn btn-link" id="search-button" data-toggle="modal" data-target="#searchModal"><i class="tim-icons icon-zoom-split" ></i>
+                <button class="btn btn-link" id="search-button" data-toggle="modal" data-target="#searchModal"><i class="tim-icons icon-zoom-split"></i>
                   <span class="d-lg-none d-md-block">Search</span>
                 </button>
               </li>
@@ -196,9 +205,9 @@ $userdb = $user->getDataBases();
       </div>
       <!-- End Navbar -->
       <div class="content">
-          <?php
-          if (isset($_GET['successmsg'])){
-              echo ' <div class="col-sm-12">
+        <?php
+        if (isset($_GET['successmsg'])) {
+          echo ' <div class="col-sm-12">
         <div style="margin-left: -10px" class="alert fade alert-simple alert-primary alert-dismissible text-left font__family-montserrat font__size-16 font__weight-light brk-library-rendered rendered show">
           <button type="button" class="close font__size-18" data-dismiss="alert">
 									<span aria-hidden="true"><a>
@@ -207,13 +216,13 @@ $userdb = $user->getDataBases();
 									<span class="sr-only" >Close</span> 
 								</button>
           <i class="start-icon far fa-check-circle faa-tada animated" ></i>
-          <strong class="font__weight-semibold">Success ! </strong> '.$_GET["successmsg"].'
+          <strong class="font__weight-semibold">Success ! </strong> ' . $_GET["successmsg"] . '
         </div>
       </div>
 ';
-          }
-          if (isset($_GET['errormsg'])){
-              echo ' <div class="col-sm-12">
+        }
+        if (isset($_GET['errormsg'])) {
+          echo ' <div class="col-sm-12">
         <div style="margin-left: -10px" class="alert fade alert-simple alert-danger alert-dismissible text-left font__family-montserrat font__size-16 font__weight-light brk-library-rendered rendered show" role="alert" data-brk-library="component__alert">
           <button type="button" class="close font__size-18" data-dismiss="alert">
 									<span aria-hidden="true">
@@ -222,23 +231,22 @@ $userdb = $user->getDataBases();
 									<span class="sr-only">Close</span>
 								</button>
           <i class="start-icon far fa-times-circle faa-pulse animated"></i>
-          <strong class="font__weight-semibold">Erreur</strong> '.$_GET["errormsg"].'
+          <strong class="font__weight-semibold">Erreur</strong> ' . $_GET["errormsg"] . '
         </div>
       </div>
 ';
-          }
-          if (!isset($_GET['page'])){
-              include_once ('welcome.php');
-          }
-          else{
-              $path = explode('_',$_GET['page']);
-              include_once (''.$path[0].'/'.$_GET['page'].'.php');
-          }
-          ?>
+        }
+        if (!isset($_GET['page'])) {
+          include_once('welcome.php');
+        } else {
+          $path = explode('_', $_GET['page']);
+          include_once('' . $path[0] . '/' . $_GET['page'] . '.php');
+        }
+        ?>
       </div>
       <footer class="footer">
         <div class="container-fluid">
-        
+
           <div class="copyright">
             ©
             <script>
@@ -270,13 +278,13 @@ $userdb = $user->getDataBases();
         <li class="adjustments-line text-center color-change">
           <span class="color-label">LIGHT MODE</span>
           <span class="Mode badge light-badge mr-2"></span>
-          <span  class="Mode badge dark-badge ml-2"></span>
+          <span class="Mode badge dark-badge ml-2"></span>
           <span class="color-label">DARK MODE</span>
         </li>
-       <li>
-        <div class="p-3"></div>
-       </li>
-       
+        <li>
+          <div class="p-3"></div>
+        </li>
+
       </ul>
     </div>
   </div>
@@ -287,7 +295,7 @@ $userdb = $user->getDataBases();
   <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
   <script src="../assets/js/black-dashboard.min.js?v=1.0.0"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script src="../assets/js/modals.js"></script>
+  <script src="../assets/js/modals.js"></script>
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.js"></script>
 
   <!-- Black Dashboard DEMO methods, don't include it in your project! -->
@@ -295,15 +303,15 @@ $userdb = $user->getDataBases();
   <script>
     $(document).ready(function() {
 
-        $('#tableBody').DataTable();
-        $('#datalisttable').DataTable();
+      $('#tableBody').DataTable();
+      $('#datalisttable').DataTable();
 
-        $('.Mode').click(function (){
-            window.location = 'Mode/changeMode.php';
-        })
+      $('.Mode').click(function() {
+        window.location = 'Mode/changeMode.php';
+      })
 
 
-        $().ready(function() {
+      $().ready(function() {
         $sidebar = $('.sidebar');
         $navbar = $('.navbar');
         $main_panel = $('.main-panel');
