@@ -26,16 +26,6 @@ class classeMereTable extends classeMere
         }
         //echo $query;
         return self::miseajour($query);
-        //        $insert = "INSERT INTO `ClasseTable`( `nom`) VALUES ('$tableName')";
-        //        self::miseajour($insert);
-        //
-        //        $query = "CREATE TABLE $tableName (";
-        //        foreach ($columns as $column) {
-        //            $query .= $column . " VARCHAR(255),";
-        //        }
-        //        $query .= "id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY)";
-        //        self::miseajour($query);
-        //        return 0;
     }
 
     //rename table

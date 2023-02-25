@@ -105,7 +105,7 @@ $classMere = new ClasseMere();
                         </button>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">';
                     while ($row1 = $tables->fetch()) {
-                      echo '<a class="dropdown-item" href="./index.php?page=table_data_list&&db=' . $row[0] . '&&table=' . $row1[1] . '">' . $row1[1] . '</a>';
+                      echo '<a class="dropdown-item" href="./index.php?page=table_data_list&&section=parcourir&&db=' . $row[0] . '&&table=' . $row1[1] . '">' . $row1[1] . '</a>';
                     }
                     echo '<a class="dropdown-item" href="index.php?page=db_info&&section=AddTable&&db=' . $row[0] . '">ajouter table</a>';
                     '

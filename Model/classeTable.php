@@ -21,7 +21,6 @@ class Table extends classeMereTable
     ) {
 
         //echo $res;
-        try {
             $res = $this->CreateTable(
                 $dbNom,
                 $tableName,
@@ -32,11 +31,9 @@ class Table extends classeMereTable
                 $fieldIsPrimary,
                 $fieldIsAutoIncr
             );
-            if ($res == 0) {
+            if ($res === 0) {
                 return  $this->Insert("mytable", [null, $tableName, $dbNom, '']);
             }
-        } catch (\Throwable $th) {
-        }
 
         return -1;
     }

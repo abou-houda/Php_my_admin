@@ -6,17 +6,16 @@ if (isset($_POST['submit'])) {
     $nomtabl =  $_GET['table'] . "_" . $_GET['db'];
     //echo $contraintName;
     $res = $table->ForeignKey($_GET['db'], $_GET['table'], $nomtabl, $contraintName, $_POST['nomtable'] . "_" . $_GET['db'], $_POST['colmytable'], $_POST['colAutretable']);
-    echo $res;
     if ($res == 1) {
 ?>
         <script>
-            window.location = './index.php?page=table_data_list&&db=<?php echo $_GET['db'] ?>&&table=<?php echo $_GET['table'] ?>&&successmsg=la création de la clé étrangère éte sucsses';
+            window.location = './index.php?page=table_data_list&&section=parcourir&&db=<?php echo $_GET['db'] ?>&&table=<?php echo $_GET['table'] ?>&&successmsg=la création de la clé étrangère éte sucsses';
         </script>
     <?php
     } else {
     ?>
         <script>
-            window.location = './index.php?page=table_foreign_key&&db=<?php echo $_GET['db'] ?>&&table=<?php echo $_GET['table'] ?>&&errormsg= lors de la création de la clé étrangère sur code (vérifier le type des données)';
+            window.location = './index.php?page=table_data_list&&section=foreignkey&&db=<?php echo $_GET['db'] ?>&&table=<?php echo $_GET['table'] ?>&&errormsg= lors de la création de la clé étrangère sur code (vérifier le type des données)';
         </script>
 <?php
     }

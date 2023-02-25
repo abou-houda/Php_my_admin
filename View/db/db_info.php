@@ -142,7 +142,7 @@ if ($_GET['section'] == "info") {
     </script>
 
     <?php
-    if (isset($_POST['add_table']) && $_POST['nbrCol'] != "" && (int)$_POST['nbrCol'] > 0) {
+    if (isset($_POST['add_table']) && $_POST['nbrCol'] != "" && (int)$_POST['nbrCol'] > 0 ) {
 
         $res = $table->createInsertTable($_GET['db'], $_POST['nom_table'], $_POST['nom_colonne'], $_POST['type_colonne'], $_POST['taille_colonne'], $_POST['default_colonne'], isset($_POST['primary']) ? $_POST['primary'] : [], isset($_POST['AT']) ? $_POST['AT'] : []);
         if ($res != -1) {
@@ -154,7 +154,7 @@ if ($_GET['section'] == "info") {
         } else {
         ?>
             <script>
-                window.location = "./index.php?page=db_info&&section=parcourir&&db=" + '<?php echo $_GET['db']; ?>' + "&&successmsg=la table déja existe";
+                window.location = "./index.php?page=db_info&&section=parcourir&&db=" + '<?php echo $_GET['db']; ?>' + "&&errormsg=la table déja existe";
             </script>
         <?php
         }
@@ -188,10 +188,9 @@ if ($_GET['section'] == "info") {
                                     echo '<td w><a  class="text-primary fw-bold">' . $row[0] . '</a></td>
                                 <td >' . $row[1] . '</td>
                                 <td >' . $table->selectTableRowCount($_GET['db'], $row[1]) . '</td>
-                                <td class="fw-bold"><button class="btn btn-primary m-2 p-2" style="width: 100px"><a href="./index.php?page=table_data_list&&db=' . $_GET['db'] . '&&table=' . $row[1] . '" style="color: white;font-weight: bold">Afficher</a></button>';
+                                <td class="fw-bold"><button class="btn btn-primary m-2 p-2" style="width: 100px"><a href="./index.php?page=table_data_list&&section=parcourir&&db=' . $_GET['db'] . '&&table=' . $row[1] . '" style="color: white;font-weight: bold">Afficher</a></button>';
                                 ?>
                                     <button onclick="deleteItem('table','Vous Etes Sur que vous voulez supprimer cette table?','la table va etre supprimer','&&db=<?php echo $_GET['db'] ?>&&table=<?php echo $row[1] ?>')" class="btn btn-secondary  p-2" style="width: 100px">Supprimer</button>
-                                    <button class="btn btn-secondary m-2 p-2" style="width: 150px"><a href="./index.php?page=table_foreign_key&&db=<?php echo $_GET['db'] ?> &&table=<?php echo $row[1] ?>" style="color: white;font-weight: bold">+ foreign key</a></button>
                                     </td>
                                     </tr>
                                 <?php

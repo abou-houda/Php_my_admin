@@ -30,11 +30,11 @@ if (isset($_POST['submit'])) {
         $j++;
     }
 
-    print_r($array);
+//    print_r($array);
     $res =  $classMere->update($nomTable, $array, $nomid, $_GET['id']);
 ?>
     <script>
-        window.location = './index.php?page=table_data_list&&db=<?php echo $_GET['db'] ?>&&table=<?php echo $_GET['table'] ?>&&successmsg=1 éte modifier.';
+        window.location = './index.php?page=table_data_list&&section=parcourir&&db=<?php echo $_GET['db']; ?>&&table=<?php echo $_GET['table']; ?>&&successmsg=1 éte modifier.';
     </script>
 <?php
 
