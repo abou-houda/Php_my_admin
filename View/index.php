@@ -305,6 +305,7 @@ $classMere = new ClasseMere();
 
       $('#tableBody').DataTable();
       $('#datalisttable').DataTable();
+      $('#structureTable').DataTable();
 
       $('.Mode').click(function() {
         window.location = 'Mode/changeMode.php';

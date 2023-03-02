@@ -29,6 +29,17 @@ class ClasseMere extends DataAccess{
         return DataAccess::selection($query);
     }
 
+    //select MultiConditions
+    public function SelectMultiConditions($table, $fields, $values){
+        $query = "SELECT * FROM $table WHERE ";
+        for($i =0; $i<count($fields); $i++){
+            $query .= $fields[$i]."="."'".$values[$i]."'";
+            if ($i !== count($fields) - 1) $query .= ' AND ';
+            else $query.= ';';
+        }
+        return DataAccess::selection($query)->fetchAll();
+    }
+
     //update table x
     public function Update($table,$values,$key,$value){
 
@@ -63,5 +74,11 @@ class ClasseMere extends DataAccess{
             $fields[] = $data[$i][0];
         }
         return $fields;
+    }
+
+    public function TableStructure($db,$table){
+        $query = "DESC ".$table.'_'.$db;
+        $data = DataAccess::selection($query)->fetchAll();
+        return $data;
     }
 }

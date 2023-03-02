@@ -9,6 +9,10 @@
                     <i class="tim-icons icon-gift-2"></i>
                 </span>
             </label>
+            <label class="btn btn-sm btn-primary btn-simple  <?php echo ($_GET['section'] == 'structure' ? 'active' : '') ?>">
+                <input type="radio" name="options">
+                <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block" ><a class="<?php echo ($_GET['section'] == 'structure' ? 'text-white' : 'text-black') ?>" href="./index.php?page=table_data_list&&section=structure&&db=<?php echo $_GET['db']; ?>&&table=<?php echo $_GET['table']?>"   class="text-white">Structure</a></span>
+            </label>
             <label class="btn btn-sm btn-primary btn-simple  <?php echo ($_GET['section'] == 'ajouter' ? 'active' : '') ?>">
                 <input type="radio" name="options">
                 <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block" ><a class="<?php echo ($_GET['section'] == 'ajouter' ? 'text-white' : 'text-black') ?>" href="./index.php?page=table_data_list&&section=ajouter&&db=<?php echo $_GET['db']; ?>&&table=<?php echo $_GET['table']?>"   class="text-white">Insérer</a></span>
@@ -77,6 +81,9 @@ if ($_GET['section'] == "parcourir"){
 }
 elseif ($_GET['section']=='foreignkey'){
     include_once 'table_foreign_key.php';
+}
+elseif ($_GET['section']=='structure'){
+    include_once 'table_structure.php';
 }
 else{
     include_once 'table_add_data.php';
