@@ -22,8 +22,6 @@ $dbs = $db->ShowDb();
 $user = User::getUser($_SESSION["login"], $_SESSION["password"]);
 $userdb = $user->getDataBases();
 $classMere = new ClasseMere();
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -195,10 +193,13 @@ $classMere = new ClasseMere();
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="SEARCH">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <i class="tim-icons icon-simple-remove"></i>
-              </button>
+              <form action="" method="post">
+                <input type="text" name="chercher" class="form-control" id="inlineFormInputGroup" placeholder="SEARCH">
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                  <i class="tim-icons icon-simple-remove"></i>
+                </button>
+                <input class="btn btn-primary" value="Chercher" type="submit" name="chercher_btn">
+              </form>
             </div>
           </div>
         </div>
@@ -236,11 +237,16 @@ $classMere = new ClasseMere();
       </div>
 ';
         }
+        if(isset($_POST['chercher_btn']) && !empty($_POST['chercher'])){
+          include_once('../View/db/db_search.php');
+        }else
         if (!isset($_GET['page'])) {
           include_once('welcome.php');
-        } else {
+          
+        }else {
           $path = explode('_', $_GET['page']);
           include_once('' . $path[0] . '/' . $_GET['page'] . '.php');
+          
         }
         ?>
       </div>

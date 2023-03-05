@@ -26,7 +26,7 @@ if (isset($_POST['add'])){
         ?>
         <script>
             window.location= "./index.php?page=db_info&&section=info&&db="+'<?php echo $_POST['db_name']; ?>'+"&&successmsg=la base de donnees a ete bien ajoute";
-        </script>
+        </script> 
         <?php
     }
     else{

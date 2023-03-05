@@ -6,7 +6,7 @@
                     <h4 class="card-title ">  <?php echo strtoupper($_GET['table']); ?> Table Structure</h4>
                     <div class=" container">
                         <?php
-                        $structure = $table->TableStructure('kaoutar','tester');
+                        $structure = $table->TableStructure($_GET['db'],$_GET['table']);
                         $tableInfo = $table->SelectMultiConditions('mytable',['nom','db_nom'],[trim($_GET['table']),trim($_GET['db'])]);
                         $constraint = explode('/',$tableInfo[0]['contraint']);
                         ?>

@@ -36,9 +36,12 @@ if (isset($_POST['submit'])) {
                                         <?php
                                         $nomtbl = $_GET['table'] . "_" . $_GET['db'];
                                         $r = $db->selection("desc $nomtbl");
-
+                                        $i=0;
                                         while ($row = $r->fetch()) {
-
+                                            if($i==0){
+                                                $i=1;
+                                            }
+                                            else
                                             echo "<option value='$row[0]'>$row[0]</option>";
                                         }
                                         ?>

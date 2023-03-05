@@ -6,9 +6,7 @@
                     <div class="col-sm-6 text-left">
                         <h5 class="card-category">New Php My Admin</h5>
                         <h2 class="card-title">Welcome !</h2>
-
                     </div>
-
                 </div>
             </div>
         </div>
