@@ -151,7 +151,7 @@ $classMere = new ClasseMere();
                   <span class="d-lg-none d-md-block">Search</span>
                 </button>
               </li>
-              <li class="dropdown nav-item">
+              <!-- <li class="dropdown nav-item">
                 <a href="javascript:void(0)" class="dropdown-toggle nav-link" data-toggle="dropdown">
                   <div class="notification d-none d-lg-block d-xl-block"></div>
                   <i class="tim-icons icon-sound-wave"></i>
@@ -159,14 +159,14 @@ $classMere = new ClasseMere();
                     Notifications
                   </p>
                 </a>
-                <ul class="dropdown-menu dropdown-menu-right dropdown-navbar">
+                 <ul class="dropdown-menu dropdown-menu-right dropdown-navbar">
                   <li class="nav-link"><a href="#" class="nav-item dropdown-item">Mike John responded to your email</a></li>
                   <li class="nav-link"><a href="javascript:void(0)" class="nav-item dropdown-item">You have 5 more tasks</a></li>
                   <li class="nav-link"><a href="javascript:void(0)" class="nav-item dropdown-item">Your friend Michael is in town</a></li>
                   <li class="nav-link"><a href="javascript:void(0)" class="nav-item dropdown-item">Another notification</a></li>
                   <li class="nav-link"><a href="javascript:void(0)" class="nav-item dropdown-item">Another one</a></li>
-                </ul>
-              </li>
+                </ul> 
+              </li> -->
               <li class="dropdown nav-item">
                 <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                   <div class="photo">
@@ -258,7 +258,7 @@ $classMere = new ClasseMere();
             <script>
               document.write(new Date().getFullYear())
             </script> PHPMYADMIN made with <i class="tim-icons icon-heart-2"></i> by
-            <a href="javascript:void(0)" target="_blank">khadija,kaoutar,zienb,houda</a> for a better web.
+            <a href="https://github.com/khadijaselmani" target="_blank">Khadija - </a><a href="https://github.com/abou-houda" target="_blank">houda - </a><a href="https://github.com/Kaoutar-boudouft" target="_blank">Kaoutar - </a><a href="https://github.com/BENCHEKROUN-Zineb" target="_blank">Zieneb</a> for a better web.
           </div>
         </div>
       </footer>
