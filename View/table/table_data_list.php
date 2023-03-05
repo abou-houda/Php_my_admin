@@ -19,15 +19,15 @@
             </label>
             <label class="btn btn-sm btn-primary btn-simple  <?php echo ($_GET['section'] == 'foreignkey' ? 'active' : '') ?>">
                 <input type="radio" name="options">
-                <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block" ><a class="<?php echo ($_GET['section'] == 'foreignkey' ? 'text-white' : 'text-black') ?>" href="./index.php?page=table_data_list&&section=foreignkey&&db=<?php echo $_GET['db'] ?> &&table=<?php echo $_GET['table']; ?>"   class="text-white">Add Foreign key</a></span>
+                <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block" ><a class="<?php echo ($_GET['section'] == 'foreignkey' ? 'text-white' : 'text-black') ?>" href="./index.php?page=table_data_list&&section=foreignkey&&db=<?php echo $_GET['db'] ?> &&table=<?php echo $_GET['table']; ?>"   class="text-white">Ajouter Foreign key</a></span>
             </label>
             <label id="export_label" class="btn btn-sm btn-primary btn-simple  ">
                 <input type="radio" name="options">
-                <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block" ><a id="export" style="color: #bf30ee">  Export</a></span>
+                <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block" ><a id="export" style="color: #bf30ee">  Exporter</a></span>
             </label>
             <label  class="btn btn-sm btn-primary btn-simple  <?php echo ($_GET['section'] == 'import' ? 'active' : '') ?>">
                 <input type="radio" name="options">
-                <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block" ><a class="<?php echo ($_GET['section'] == 'import' ? 'text-white' : 'text-black') ?>" href="./index.php?page=table_data_list&&section=import&&db=<?php echo $_GET['db'] ?> &&table=<?php echo $_GET['table']; ?>"   class="text-white">Import</a></span>
+                <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block" ><a class="<?php echo ($_GET['section'] == 'import' ? 'text-white' : 'text-black') ?>" href="./index.php?page=table_data_list&&section=import&&db=<?php echo $_GET['db'] ?> &&table=<?php echo $_GET['table']; ?>"   class="text-white">Importer</a></span>
             </label>
         </div>
 
