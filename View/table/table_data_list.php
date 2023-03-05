@@ -23,7 +23,7 @@
             </label>
             <label id="export_label" class="btn btn-sm btn-primary btn-simple  ">
                 <input type="radio" name="options">
-                <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block" ><a id="export">  Export</a></span>
+                <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block" ><a id="export" style="color: #bf30ee">  Export</a></span>
             </label>
             <label  class="btn btn-sm btn-primary btn-simple  <?php echo ($_GET['section'] == 'import' ? 'active' : '') ?>">
                 <input type="radio" name="options">
@@ -109,6 +109,7 @@ else{
     $('#export').click(function (){
         $('label').removeClass('active');
         $('label a').removeClass('text-white');
+        $('label a').css('color','');
         $('label a').addClass('text-black');
         $('#export_label').addClass('active');
 
