@@ -303,7 +303,8 @@ $classMere = new ClasseMere();
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script src="../assets/js/modals.js"></script>
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.js"></script>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script>
+  <script src="../assets/js/fileSaver.js"></script>
   <!-- Black Dashboard DEMO methods, don't include it in your project! -->
 
   <script>
@@ -440,3 +441,4 @@ $classMere = new ClasseMere();
 </body>
 
 </html>
+<?php

@@ -14,3 +14,5 @@ function deleteItem(type,titre,text,autreGet){
 }
 
 
+
+

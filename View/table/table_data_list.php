@@ -21,6 +21,14 @@
                 <input type="radio" name="options">
                 <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block" ><a class="<?php echo ($_GET['section'] == 'foreignkey' ? 'text-white' : 'text-black') ?>" href="./index.php?page=table_data_list&&section=foreignkey&&db=<?php echo $_GET['db'] ?> &&table=<?php echo $_GET['table']; ?>"   class="text-white">Add Foreign key</a></span>
             </label>
+            <label id="export_label" class="btn btn-sm btn-primary btn-simple  ">
+                <input type="radio" name="options">
+                <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block" ><a id="export">  Export</a></span>
+            </label>
+            <label  class="btn btn-sm btn-primary btn-simple  <?php echo ($_GET['section'] == 'import' ? 'active' : '') ?>">
+                <input type="radio" name="options">
+                <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block" ><a class="<?php echo ($_GET['section'] == 'import' ? 'text-white' : 'text-black') ?>" href="./index.php?page=table_data_list&&section=import&&db=<?php echo $_GET['db'] ?> &&table=<?php echo $_GET['table']; ?>"   class="text-white">Import</a></span>
+            </label>
         </div>
 
     </div>
@@ -85,10 +93,55 @@ elseif ($_GET['section']=='foreignkey'){
 elseif ($_GET['section']=='structure'){
     include_once 'table_structure.php';
 }
+//elseif ($_GET['section']=='export'){
+//    include_once 'table_export.php';
+//
+//}
+elseif ($_GET['section']=='import'){
+    include_once 'table_import.php';
+}
 else{
     include_once 'table_add_data.php';
 }
 ?>
+
+<script>
+    $('#export').click(function (){
+        $('label').removeClass('active');
+        $('label a').removeClass('text-white');
+        $('label a').addClass('text-black');
+        $('#export_label').addClass('active');
+
+                $.ajax({
+                    url: 'table/selectJson.php?db=<?php echo $_GET['db']; ?>&&table=<?php echo $_GET['table']; ?>',
+                    success: function (data) {
+                        console.log(data);
+                        const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; charset=UTF-8';
+                        const EXCEL_EXTENSION = '.xlsx';
+                        const worksheet = XLSX.utils.json_to_sheet(JSON.parse(data));
+                        const workbook = {
+                            Sheets : {
+                                'data' : worksheet
+                            },
+                            SheetNames : ['data']
+                        };
+                        const excelBuffer = XLSX.write(workbook,{bookType : 'xlsx',type : 'array'});
+                        const sheet = new Blob([excelBuffer], {type:EXCEL_TYPE,});
+                        saveAs(sheet,"test"+'_export_'+new Date().getTime()+EXCEL_EXTENSION);
+                        setTimeout(function (){
+                            window.location='./index.php?page=table_data_list&&section=parcourir&&db=<?php echo $_GET["db"]?>&&table=<?php echo $_GET["table"]?>&&successmsg=la table a ete bien exporter !';
+
+                        },1000);
+                    },
+                    error: function (er) {
+                        console.log(er);
+                        window.location='./index.php?page=table_data_list&&section=parcourir&&db=<?php echo $_GET["db"]?>&&table=<?php echo $_GET["table"]?>&&errormsg=erreur a lhors de lexportation  !';
+
+                    }
+
+                })
+    })
+</script>
 
 
 
